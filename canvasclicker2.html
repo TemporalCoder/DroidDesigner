@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body onload=init()>
+  <table border = 1>
+  <tr>
+  <td>Hello canvas </td><td>Canvas</td></tr>
+  <tr><td><input type="text" id="coords" name="coords"></td>
+  <td>
+  
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+	</td></tr>
+	</table>
+    <script>
+	
+
+	var canvas = document.getElementById('myCanvas');
+	var context = canvas.getContext('2d');
+
+function init()
+{
+	  
+			context.clearRect(0,0,500,500);
+			context.fillStyle="#CCFFCC"; 	//Black
+			context.strokeStyle="#DD00DD";	//Light grey
+			context.fillRect(0,0,500,500);
+			context.strokeRect(2,2, 496,496); //2 pixel border
+	
+}
+	function getMousePos(canvas, evt) //calculates offset - canvas to screen
+	{
+		var rect = canvas.getBoundingClientRect();
+		return {
+		  x: evt.clientX - rect.left,
+		  y: evt.clientY - rect.top
+		};
+	}
+
+	// event listener for click event
+	canvas.addEventListener('click', function(evt) 
+	{
+	alert("hello");
+		var mousePos = getMousePos(canvas, evt);
+			document.getElementById("coords").value = mousePos.x + ',' + mousePos.y;
+	}, false);
+
+      
+	</script>
+  </body>
+</html>
+      
