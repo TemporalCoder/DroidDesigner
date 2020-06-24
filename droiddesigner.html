@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<html>
+  <head>
+  </head>
+  <body onload = setupGame()>
+    <H2> Custom Droid Designer</h2>
+<table width=75% border = 3>
+	<tr>
+	<td style="vertical-align:top"  >
+	R-Series Builder
+	<form>
+	<P> Dome <input type="text" id="dome" name="dome"> <input type="color" id="domecolor" name="domecolor" value="#bbbbbb" size="8"><button onclick="return setDomeColour()">Set Dome Colour</button></P>
+	<P> Panels <input type="text" id="panels" name="panels"><input type="color" id="panelcolor" name="panelcolor" value="#0000fc"><button onclick="return setPanelColour()">Set Panel Colour</button></P>
+	<P> Body <input type="text" id="body" name="body"><input type="color" id="bodycolor" name="bodycolor" value="#ffffff"><button onclick="return setBodyColour()">Set Body Colour</button> </P>
+	<P> 
+	<P>Paint Bucket Tool... Coming soon <input type="color" id="fillbucket" name="fillbucket" value="#ffffff"> </P>
+	</form>
+	</td>
+	<td>
+		<canvas id="GCanvas" width="500" height="500">No HTML5 Support</canvas>
+	</td>
+	</tr>
+</table>
+
+<script>
+        //Game canvas
+        var canvas = document.getElementById('GCanvas');
+        var GC = canvas.getContext('2d'); //GC = Game Canvas (what we draw on)
+				
+		var title = "Droid Designer:";
+		var img = new Image();
+		img.src = 'R2Base3.png';
+		img.crossOrigin = "Anonymous";		
+		
+        //Global Variables
+		var w = 960;
+		var h = 960;
+    
+		//Keyboard Input Listener
+//		var keyState = {};    
+//		window.addEventListener('keydown',function(e){keyState[e.keyCode || e.which] = true;},true);    
+//		window.addEventListener('keyup',function(e){keyState[e.keyCode || e.which] = false;},true);	
+		
+		canvas.addEventListener("mousedown", doMouseDown, false);
+		
+		
+		var panelColour;
+		var oldR=0;
+		var oldG=0;
+		var oldB=252;
+			
+		var domeColour;
+		var oldDomeR=187;
+		var oldDomeG=187;
+		var oldDomeB=187;
+		
+		var bodyColour;
+		var oldBodyR=255;
+		var oldBodyG=255;
+		var oldBodyB=255;
+		
+			
+		function doMouseDown(event)
+		{
+		    x = event.pageX;
+		    y = event.pageY;
+		    alert("mouse: " + x+":"+y);
+		}
+        //game functions    
+        function setupGame()
+        {   mainGame();
+            //timerID = setInterval("mainGame()", 30); //run the mainGame
+            setDomeColour();
+            setPanelColour();
+            setBodyColour();
+            
+            
+        }
+
+        function setDomeColour()
+        {
+	        var domeColour = document.getElementById("domecolor").value;
+	        document.getElementById("dome").value = domeColour;
+	        colourDome(domeColour);
+	        return false;
+        }
+
+
+        function setPanelColour()
+        {
+	        var panelColour = document.getElementById("panelcolor").value;
+	        document.getElementById("panels").value = panelColour;
+	        testIt(panelColour);
+	        return false;
+	        
+        }
+
+        function setBodyColour()
+        {
+	        var bodyColour = document.getElementById("bodycolor").value;
+	        document.getElementById("body").value = bodyColour;
+	        colourBody(bodyColour);
+	        return false;
+        }
+
+
+		function testIt(panelColour2)
+		{
+			imageData = GC.createImageData(500, 500);	  
+			var imageData = GC.getImageData(0, 0, 500, 500);
+			  
+			GC.clearRect(0,0,500,500);
+			GC.fillStyle="#CCFFCC"; 	//Black
+			GC.strokeStyle="#DD00DD";	//Light grey
+			GC.fillRect(0,0,500,500);
+			GC.strokeRect(2,2, 496,496); //2 pixel border
+	
+	        var newColour = panelColour2;
+	        
+            r = hexToR(newColour);
+            g = hexToG(newColour);
+            b = hexToB(newColour);
+
+            function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
+            function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
+            function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
+            function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+        
+			for (var i=0;i<imageData.data.length;i+=4)
+			{
+	            if(imageData.data[i]==oldR && imageData.data[i+1]==oldG&&imageData.data[i+2]==oldB )
+				{
+				
+					imageData.data[i]=r;
+					imageData.data[i+1]=g;
+					imageData.data[i+2]=b;
+				}
+			}
+    		
+    		oldR = r;
+    		oldG = g;
+    		oldB = b;
+    		
+		//	mainGame();
+	
+			GC.putImageData(imageData, 0, 0);
+	
+			
+			return false;
+		}
+		
+		function colourDome(panelColour2)
+		{
+			imageData = GC.createImageData(500, 500);	  
+			var imageData = GC.getImageData(0, 0, 500, 500);
+			  
+			GC.clearRect(0,0,500,500);
+			GC.fillStyle="#CCFFCC"; 	//Black
+			GC.strokeStyle="#DD00DD";	//Light grey
+			GC.fillRect(0,0,500,500);
+			GC.strokeRect(2,2, 496,496); //2 pixel border
+	
+	        //alert(panelColour2);
+	        var newColour = panelColour2;
+	        
+            r = hexToR(newColour);
+            g = hexToG(newColour);
+            b = hexToB(newColour);
+
+            function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
+            function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
+            function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
+            function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+        
+			for (var i=0;i<imageData.data.length;i+=4)
+			{
+	            if(imageData.data[i]==oldDomeR && imageData.data[i+1]==oldDomeG&&imageData.data[i+2]==oldDomeB )
+				{
+				
+					imageData.data[i]=r;
+					imageData.data[i+1]=g;
+					imageData.data[i+2]=b;
+				}
+			}
+    		
+    		oldDomeR = r;
+    		oldDomeG = g;
+    		oldDomeB = b;
+    		
+		//	mainGame();
+	
+			GC.putImageData(imageData, 0, 0);
+	
+			
+			return false;
+		}
+
+		function colourBody(panelColour2)
+		{
+			imageData = GC.createImageData(500, 500);	  
+			var imageData = GC.getImageData(0, 0, 500, 500);
+			  
+			GC.clearRect(0,0,500,500);
+			GC.fillStyle="#CCFFCC"; 	//Black
+			GC.strokeStyle="#DD00DD";	//Light grey
+			GC.fillRect(0,0,500,500);
+			GC.strokeRect(2,2, 496,496); //2 pixel border
+	
+	        //alert(panelColour2);
+	        var newColour = panelColour2;
+	        
+            r = hexToR(newColour);
+            g = hexToG(newColour);
+            b = hexToB(newColour);
+
+            function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
+            function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
+            function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
+            function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+        
+			for (var i=0;i<imageData.data.length;i+=4)
+			{
+	            if(imageData.data[i]==oldBodyR && imageData.data[i+1]==oldBodyG&&imageData.data[i+2]==oldBodyB )
+				{
+				
+					imageData.data[i]=r;
+					imageData.data[i+1]=g;
+					imageData.data[i+2]=b;
+				}
+			}
+    		
+    		oldBodyR = r;
+    		oldBodyG = g;
+    		oldBodyB = b;
+    		
+		//	mainGame();
+	
+			GC.putImageData(imageData, 0, 0);
+	
+			
+			return false;
+		}
+
+
+        function gameLoop(){}
+        function intro(){}
+        function outro(){}
+		function mainGame()
+		{
+			//Get player Input
+	//		if(keyState[37]){PaddleX-=5;} //up key
+	//		if(keyState[39]) {PaddleX+=5;}//down key
+			
+			//draw Game
+			//clear screen and draw background/outline
+			GC.clearRect(0,0,500,500);
+			GC.fillStyle="#CCCCCC"; 	//Black
+			GC.strokeStyle="#DDDDDD";	//Light grey
+			GC.fillRect(0,0,500,500);
+			GC.strokeRect(2,2, 496,496); //2 pixel border
+	
+			w=w*0.5;
+			h = h* 0.5;
+
+			GC.drawImage(img, 0, 0, w,h);
+		
+		
+			//Draw Title
+			GC.fillStyle="#000000";  //White
+			GC.font="18px Arial";
+			GC.fillText(title, 10,40);
+		
+		}
+
+    </script>
+  </body>
+</html>
