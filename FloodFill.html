@@ -1,0 +1,174 @@
+
+<!DOCTYPE HTML>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<html>
+  <head>
+  </head>
+  <body onload = setupGame()>
+    <H2> Custom Droid Designer</h2>
+<table width=75% border = 3>
+	<tr>
+	<td style="vertical-align:top"  >
+	R-Series Builder
+	</td>
+	<td>
+		<canvas id="GCanvas" width="500" height="500">No HTML5 Support</canvas>
+	</td>
+	</tr>
+</table>
+
+<script>
+        //Game canvas
+        var canvas = document.getElementById('GCanvas');
+        var GC = canvas.getContext('2d'); //GC = Game Canvas (what we draw on)
+				
+		var title = "Droid Designer:";
+		
+		var map = [
+					  [1,1,1,1,1,1,1,1,1,1],
+					  [1,0,0,0,0,0,0,0,0,1],
+					  [1,0,0,0,0,0,0,0,0,1],
+					  [1,0,0,0,0,0,0,0,0,1],
+					  [1,0,0,0,0,0,0,0,0,1],
+					  [1,1,1,1,1,0,0,0,0,1],
+					  [1,0,0,0,1,0,0,0,0,1],
+					  [1,0,0,0,1,0,0,1,1,1],
+					  [1,0,0,0,1,0,0,1,0,1],
+					  [1,1,1,1,1,1,1,1,1,1]
+					];
+		var tw = 20;
+		var th = 20;
+		
+		
+        //game functions    
+        function setupGame()
+        {   mainGame();
+            //timerID = setInterval("mainGame()", 30); //run the mainGame
+            
+        }
+/*
+        function replaceColour(r1,g1,b1, r2, b2, g2)
+        {
+        	imageData = GC.createImageData(500, 500);	  
+			var imageData = GC.getImageData(0, 0, 500, 500);
+			  
+			GC.clearRect(0,0,500,500);
+			GC.fillStyle="#CCFFCC"; 	//Black
+			GC.strokeStyle="#DD00DD";	//Light grey
+			GC.fillRect(0,0,500,500);
+			GC.strokeRect(2,2, 496,496); //2 pixel border
+	
+	    
+			for (var i=0;i<imageData.data.length;i+=4)
+			{
+	            if(imageData.data[i]==r1 && imageData.data[i+1]==g1&&imageData.data[i+2]==b1 )
+				{
+					imageData.data[i]=r2;
+					imageData.data[i+1]=g2;
+					imageData.data[i+2]=b2;
+				}
+			}
+    	
+			GC.putImageData(imageData, 0, 0);
+	
+			return false;
+        }
+       */ 
+        function gameLoop(){}
+        function intro(){}
+        function outro(){}
+		function mainGame()
+		{
+			
+			//draw Game
+			//clear screen and draw background/outline
+			GC.clearRect(0,0,500,500);
+			GC.fillStyle="#CCCCCC"; 	//Black
+			GC.strokeStyle="#DDDDDD";	//Light grey
+			GC.fillRect(0,0,500,500);
+			GC.strokeRect(2,2, 496,496); //2 pixel border
+			
+			GC.strokeStyle="#000000";
+			GC.fillStyle="#222222"; 	//Black
+			
+			flood_fillStack(4,4)
+			
+			
+			for(var i=0;i<10;i++)
+			{
+				for(var j=0;j<10;j++)
+				{
+					GC.strokeRect(i*tw,j*th, tw,th); //2 pixel border							
+					
+					if(map[j][i]==1){
+						GC.fillStyle="#222222"; 	//Black
+						GC.fillRect(i*tw,j*th, tw,th);
+					}
+					if(map[j][i]==0){
+						GC.fillStyle="#FFFFFF"; 	//White
+						GC.fillRect(i*tw,j*th, tw,th);
+					}
+					if(map[j][i]==2){
+						GC.fillStyle="#0000FF"; 	//White
+						GC.fillRect(i*tw,j*th, tw,th);
+					}
+				}			
+			}
+			
+			
+			//floodFill();
+			//Draw Title
+			GC.fillStyle="#000000";  //White
+			GC.font="18px Arial";
+			GC.fillText(title, 10,40);
+			
+			
+		
+		}
+		
+		function floodFill()
+		{
+			var imageData = GC.getImageData(0, 0, 500, 500);
+			
+		}
+		
+		function flood_fillStack(x, y)
+        {
+            var pointStack = [] //store pixel coords to check and paint
+            pointStack.push([x, y]);           //store staring pixel
+            alert(pointStack[0]+""+pointStack.length);          
+						
+            while(pointStack.length>0)                   //if the stack still has pixels, continue
+            {
+                var tempPoint = pointStack.pop();     //get the pixel on the top of the stack, removes!
+                x = tempPoint[0];                        //store values to local variable, makes following code shorter!
+                y = tempPoint[1];
+                map[x, y] = 2;                       //Paint the pixel
+                
+                if (checkNeighbour(x + 1, y))
+                    pointStack.push([x+1, y]);
+                if (checkNeighbour(x - 1, y))
+                    pointStack.push([x-1, y]);
+                if (checkNeighbour(x, y + 1))
+                    pointStack.push([x, y+1]);
+                if (checkNeighbour(x, y - 1))
+                    pointStack.push([x, y-1]);
+                
+            }     
+        }
+
+		
+		
+		function checkNeighbour(x, y)
+        {
+            if (x < 0 || x >= 10) return false;
+            if (y < 0 || y >= 10) return false;
+
+            if (map[x][y]==0){return true;}
+            else{return false;}
+            //return false;
+        }
+
+    </script>
+  </body>
+</html>
