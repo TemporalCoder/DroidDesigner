@@ -1,0 +1,10 @@
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\bin\Debug\Floodfill.exe.config
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\bin\Debug\Floodfill.exe
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\bin\Debug\Floodfill.pdb
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.csprojAssemblyReference.cache
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.Form1.resources
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.Properties.Resources.resources
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.csproj.GenerateResource.cache
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.csproj.CoreCompileInputs.cache
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.exe
+C:\Users\Starwars\Documents\ProgrammingStuff\Floodfill\Floodfill\obj\Debug\Floodfill.pdb
