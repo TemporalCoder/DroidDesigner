@@ -143,7 +143,7 @@
                 var tempPoint = pointStack.pop();     //get the pixel on the top of the stack, removes!
                 x = tempPoint[0];                        //store values to local variable, makes following code shorter!
                 y = tempPoint[1];
-                map[x, y] = 2;                       //Paint the pixel
+                map[x][y] = 2;                       //Paint the pixel
                 
                 if (checkNeighbour(x + 1, y))
                     pointStack.push([x+1, y]);
