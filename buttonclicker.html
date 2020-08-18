@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body onload="setup()">
+
+<h1>The onclick Event</h1>
+
+<button onclick="leftClick()">Prev Image</button>
+<button onclick="rightClick()">Next Image</button>
+
+Name: <input type="text" id="myText" value="No Image Chosen">
+
+<script>
+var imageName = ["Test01", "Test02", "Test03", "Test04"];
+var currImage=0;
+function setup()
+{
+	document.getElementById("myText").value = imageName[currImage];
+	
+}
+function leftClick() 
+{
+	if(currImage>0)currImage--;
+	document.getElementById("myText").value = imageName[currImage];
+
+}
+function rightClick() 
+{
+	if(currImage<imageName.length-1)currImage++;
+	document.getElementById("myText").value = imageName[currImage];
+}
+</script>
+
+</body>
+</html>
