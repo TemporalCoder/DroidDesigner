@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<html>
+<body onload="setup()">
+
+<h1>The onclick Event</h1>
+
+<button onclick="leftClick()">Prev Image</button>
+<button onclick="rightClick()">Next Image</button>
+
+Name: <input type="text" id="myText" value="No Image Chosen">
+<br>
+
+<canvas id="GCanvas" width="512" height="700"style="border:1px solid #000000;">No HTML5 Support</canvas>
+    
+
+<script>
+var imageName = ["chopper02.png", "R2Flying.png", "Screenshot.png", "Screenshot2.png"];
+var currImage=0;
+
+var imgArray = new Array();
+
+    //Game canvas
+    var canvas = document.getElementById('GCanvas');
+    var GC = canvas.getContext('2d'); //GC = Game Canvas (what we draw on
+        
+	//Create and load image (png)
+	for(i=0;i<imageName.length;i++)
+	{
+		imgArray[i] = new Image();
+		imgArray[i].src = imageName[i];
+	}
+
+
+function setup()
+{
+	document.getElementById("myText").value = imageName[currImage];	
+	drawCanvas();
+}
+function drawCanvas()
+{
+	//Upper Column
+	GC.fillRect(5,5,500,500);		
+	GC.drawImage(imgArray[currImage], 50, 50, 256, 256);//image, source, destination (crop and scale)
+			
+
+}
+
+function leftClick() 
+{
+	if(currImage>0)currImage--;
+	document.getElementById("myText").value = imageName[currImage];
+	drawCanvas();
+
+}
+function rightClick() 
+{
+	if(currImage<imageName.length-1)currImage++;
+	document.getElementById("myText").value = imageName[currImage];
+	drawCanvas();
+
+}
+</script>
+
+</body>
+</html>
